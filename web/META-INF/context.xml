@@ -1,0 +1,32 @@
+<Context path="/">
+
+    <Resource name="jdbc/Gallery_Read_Master" auth="Container" type="javax.sql.DataSource"
+              maxTotal="1000" maxIdle="30" maxWaitMillis="10000" username="gallery"
+              password="eecs118" driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://172.31.26.150:3306/gallery?autoReconnect=true&amp;useSSL=false" />
+
+    <Resource name="jdbc/Gallery_Read_Slave" auth="Container" type="javax.sql.DataSource"
+              maxTotal="1000" maxIdle="30" maxWaitMillis="10000" username="gallery"
+              password="eecs118" driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://172.31.29.177:3306/gallery?autoReconnect=true&amp;useSSL=false" />
+
+    <Resource name="jdbc/Gallery_Read_Local" auth="Container" type="javax.sql.DataSource"
+              maxTotal="1000" maxIdle="30" maxWaitMillis="10000" username="gallery"
+              password="eecs118" driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://127.0.0.1:3306/gallery?autoReconnect=true&amp;useSSL=false" />
+
+    <Resource name="jdbc/Gallery_Write_Master" auth="Container" type="javax.sql.DataSource"
+              maxTotal="1000" maxIdle="30" maxWaitMillis="10000" username="gallery"
+              password="eecs118" driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://172.31.26.150:3306/gallery?autoReconnect=true&amp;useSSL=false" />
+
+    <Resource name="jdbc/Gallery_Write_Local" auth="Container" type="javax.sql.DataSource"
+              maxTotal="1000" maxIdle="30" maxWaitMillis="10000" username="gallery"
+              password="eecs118" driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://127.0.0.1:3306/gallery?autoReconnect=true&amp;useSSL=false" />
+
+    <!-- Set url to url="jdbc:mysql://localhost:3306/moviedb?autoReconnect=true&amp;useSSL=false" for local testing and
+         url="jdbc:mysql://172.31.26.150:3306/moviedb?autoReconnect=true&amp;useSSL=false" when you want to use the
+         master connection -->
+
+</Context>

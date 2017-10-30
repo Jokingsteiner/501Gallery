@@ -1,0 +1,22 @@
+body {
+    background-color: #e2e2e2;
+    /*background-image: url(/img/pink_dust.png);*/
+    /*background-image: url(/img/old_map.png);*/
+    padding-bottom: 10px;
+}
+
+.movie-list-item .movie-list-item-wrapper {
+    margin: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgb(180, 180, 180);
+    background: white;
+}
+
+ul.page-selector {
+    margin: 0 !important;
+}
+
+.my-title {
+    font-family: Impact, Charcoal, sans-serif;
+}
