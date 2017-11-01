@@ -3,7 +3,8 @@
 //	int pageTotal = (int)request.getAttribute("pageTotal");
 //	int pageNum = (int)request.getAttribute("pageNum");
 //	int pageSize = (int)request.getAttribute("pageSize");
-	LinkedList<Gallery> result = (LinkedList<Gallery>) request.getAttribute("result");
+	LinkedList<Image> result = (LinkedList<Image>) request.getAttribute("result");
+	int imgCount = (Integer) request.getAttribute("image_count");
 %>
 
 <!DOCTYPE html>
@@ -50,7 +51,7 @@
 							%>
 								<%
 									int colCount = 0;
-									for(Gallery gallery:result){
+									for(Image img: result){
 										if (colCount == 0) {
 								%>
 								<div class="row">
@@ -58,20 +59,9 @@
 										}
 									%>
 									<div class="col-xs-6 col-md-2">
-										<a href="ImageControl?gallery_id_str=<%=gallery.getId()%>" id = "poster" class="thumbnail">
-											<%
-												if ( gallery.getImages().size() != 0) {
-											%>
-												<img src="<%=Image.getImageById(gallery.getImages().getFirst()).getLink()%>" alt="img_id:<%=gallery.getImages().getFirst()%>">
-											<%
-												}
-												else {
-											%>
-												<img src="gallery/image/thumbnail_unavailable.jpg">
-											<%
-												}
-											%>
-											<div><%=gallery.getName()%></div>
+										<a href="<%=img.getLink()%>" id = "poster" class="thumbnail">
+                                            <img src="<%=img.getLink()%>" alt="img_id:<%=img.getId()%>">
+											<div><%=img.getTitle()%></div>
 										</a>
 									</div>
 

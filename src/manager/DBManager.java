@@ -29,8 +29,8 @@ public class DBManager {
     {
 		long startTime = System.nanoTime();
 
-		ResultSet rs;
-        switch(type) {
+		//ResultSet rs;
+		switch(type) {
 			case "OnlyPooled":
 				rs = executeQuery_pooled_noPrepared(sql);
 				break;

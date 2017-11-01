@@ -18,11 +18,7 @@ public class GalleryControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Gallery gallery = new Gallery();
-
 		LinkedList<Gallery> galleryList = fetchGalleries();
-
-		request.setAttribute("gallery", gallery);
 		request.setAttribute("result", galleryList);
 		request.getRequestDispatcher("gallery/view/GalleryList.jsp").forward(request, response);
 	}
@@ -34,11 +30,11 @@ public class GalleryControl extends HttpServlet {
 	private LinkedList<Gallery> fetchGalleries() {
 		LinkedList<Gallery> galleryList = new LinkedList<Gallery>();
 		DBManager galleryDb = new DBManager();
-		String movieSelect = "SELECT distinct gallery_id, gallery.name, gallery.description"
-							+" FROM gallery " + "ORDER BY gallery.name DESC;";
+		String gallerySelect = "SELECT distinct gallery_id, gallery.name, gallery.description"
+							 +" FROM gallery " + "ORDER BY gallery.name DESC;";
 		try {
 
-			ResultSet rs = galleryDb.executeQuery(movieSelect, "OnlyPrepared");
+			ResultSet rs = galleryDb.executeQuery(gallerySelect, "OnlyPrepared");
 			while (rs.next())
 			{
 				Gallery gallery = new Gallery();
@@ -47,7 +43,7 @@ public class GalleryControl extends HttpServlet {
 				gallery.setDescription(rs.getString(3));
 				galleryList.add(gallery);
 			}
-			galleryDb.close();
+			 galleryDb.close();
 
 			for (Gallery gallery: galleryList)
 			{
@@ -58,8 +54,8 @@ public class GalleryControl extends HttpServlet {
 				rs = galleryDb.executeQuery(imgSelect, "OnlyPrepared");
 				while (rs.next())
 					gallery.getImages().add(rs.getInt(1));
-				galleryDb.close();
 			}
+			galleryDb.close();
 		} catch (SQLException e) {
 			System.err.println("Error");
 			while(e != null) {
