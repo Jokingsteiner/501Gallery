@@ -20,7 +20,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="view/MainPage.jsp">
+        <a class="navbar-brand" href="GalleryControl">
             <i class="fa fa-video-camera" aria-hidden="true"></i><span style="padding-left: 15px;">501Gallery</span>
         </a>
     </div>

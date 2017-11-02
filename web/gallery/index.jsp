@@ -10,7 +10,6 @@
     <title>501Gallery</title>
   </head>
   <body>
-  <a href="http://128.195.204.85:8080/bank/index.jsp">The Sample Bank Page</a>
   <a href="${pageContext.request.contextPath}/GalleryControl">501Gallery</a>
   </body>
 </html>

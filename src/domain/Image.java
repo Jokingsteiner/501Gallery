@@ -14,8 +14,8 @@ public class Image {
     private int artist_id = 0;
     private int detail_id = 0;
 
-    public int getId() { return image_id; }
-    public void setId(int id) { this.image_id = id; }
+    public int getID() { return image_id; }
+    public void setID(int id) { this.image_id = id; }
     public String getTitle() {
         return title;
     }
@@ -35,25 +35,41 @@ public class Image {
         LinkedList<Image> imgList = new LinkedList<Image>();
         int cntImage = 0;
         DBManager imageDb = new DBManager();
-        String imgsSelect = "SELECT DISTINCT image_id, title, link, gallery_id, artist_id, detail_id, COUNT(DISTINCT image_id) "
+        String imgsSelect = "SELECT DISTINCT image_id, title, link, gallery_id, artist_id, detail_id "
                             +"FROM image "
-                            +"WHERE gallery_id = " + gallery_id_str + ";";
+                            +"WHERE gallery_id = " + gallery_id_str + " "
+                            +"ORDER BY title ASC;";
         try {
-
             ResultSet rs = imageDb.executeQuery(imgsSelect, "OnlyPrepared");
             while (rs.next())
             {
                 Image img = new Image();
-                img.setId(rs.getInt(1));
+                img.setID(rs.getInt(1));
                 img.setTitle(rs.getString(2));
                 img.setLink(rs.getString(3));
                 img.setGallery(rs.getInt(4));
                 img.setArtist(rs.getInt(5));
                 img.setDetail(rs.getInt(6));
-                cntImage = rs.getInt(7);
                 imgList.add(img);
             }
             imageDb.close();
+        } catch (SQLException e) {
+            System.err.println("Error");
+            while(e != null) {
+                System.out.println("Error: " + e.getMessage());
+                e = e.getNextException();
+            }
+        }finally{
+            imageDb.close();
+        }
+
+        String cntImg = "SELECT COUNT(DISTINCT image_id) "
+                       +"FROM image "
+                       +"WHERE gallery_id = " + gallery_id_str + ";";
+        try {
+            ResultSet rs = imageDb.executeQuery(cntImg, "OnlyPrepared");
+            while (rs.next())
+                cntImage = rs.getInt(1);
         } catch (SQLException e) {
             System.err.println("Error");
             while(e != null) {
@@ -71,14 +87,14 @@ public class Image {
         Image img = new Image();
         DBManager imageDb = new DBManager();
         String imgsSelect = "SELECT DISTINCT image_id, title, link, gallery_id, artist_id, detail_id "
-                            +"FROM image"
+                            +"FROM image "
                             +"WHERE image_id = " + Integer.toString(img_id) + ";";
         try {
 
             ResultSet rs = imageDb.executeQuery(imgsSelect, "OnlyPrepared");
             while (rs.next())
             {
-                img.setId(rs.getInt(1));
+                img.setID(rs.getInt(1));
                 img.setTitle(rs.getString(2));
                 img.setLink(rs.getString(3));
                 img.setGallery(rs.getInt(4));

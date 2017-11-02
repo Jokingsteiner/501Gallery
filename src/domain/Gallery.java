@@ -12,8 +12,8 @@ public class Gallery {
 		this.images = new LinkedList<Integer>();
 	}
 	
-	public int getId() { return gallery_id; }
-	public void setId(int id) { this.gallery_id = id; }
+	public int getID() { return gallery_id; }
+	public void setID(int id) { this.gallery_id = id; }
 	public String getName() {
 		return name;
 	}

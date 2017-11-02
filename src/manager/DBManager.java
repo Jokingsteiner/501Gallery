@@ -28,7 +28,7 @@ public class DBManager {
 	public ResultSet executeQuery(String sql, String type)
     {
 		long startTime = System.nanoTime();
-
+		System.out.println(sql);
 		//ResultSet rs;
 		switch(type) {
 			case "OnlyPooled":

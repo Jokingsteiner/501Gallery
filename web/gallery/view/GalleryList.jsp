@@ -10,6 +10,7 @@
 <html>
 <head>
 	<title>Gallery List</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/gallery/sources/css/poster_list.css">
 </head>
 
 <body>
@@ -17,27 +18,6 @@
 <div class="container">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<div class="row">
-				<div class="col-sm-12 col-md-6">
-					<div id="parameters-form" class="form-inline" style="margin-left: 10px !important;">
-						<div class="form-group">
-							<button id="movie-id-sort" class="btn btn-default">
-								Movie ID&nbsp;
-								<i id="active-toggle-icon" class="glyphicon glyphicon-chevron-down"></i>
-							</button>
-						</div>
-						<div class="form-group">
-							<button id="movie-year-sort" class="btn btn-default">Year&nbsp;</button>
-						</div>
-						<div class="form-group">
-							<button id="movie-title-sort" class="btn btn-default">Title&nbsp;</button>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-12 col-md-6">
-					<ul class="page-selector pagination pull-right" style="margin-right: 10px !important;"></ul>
-				</div>
-			</div>
 			<div class="row">
 				<div class="prod-panel col-lg-12">
 					<div class="panel panel-primary">
@@ -58,7 +38,7 @@
 										}
 									%>
 									<div class="col-xs-6 col-md-2">
-										<a href="ImageControl?gallery_id_str=<%=gallery.getId()%>" id = "poster" class="thumbnail">
+										<a href="ImageControl?gallery_name=<%=gallery.getName()%>&gallery_id_str=<%=gallery.getID()%>" id = "poster" class="thumbnail">
 											<%
 												if ( gallery.getImages().size() != 0) {
 											%>

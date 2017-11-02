@@ -16,11 +16,13 @@ public class ImageControl extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String gallery_id_str = request.getParameter("gallery_id_str");
-		Object[] res = Image.fetchImagesByGallery(gallery_id_str);
+		String galleryName = request.getParameter("gallery_name");
+        Object[] res = Image.fetchImagesByGallery(gallery_id_str);
 		LinkedList<Image> imageList = (LinkedList<Image>) res[0];
         int imageCount = (Integer) res[1];
 		request.setAttribute("result", imageList);
 		request.setAttribute("image_count", imageCount);
+		request.setAttribute("gallery_name", galleryName);
 		request.getRequestDispatcher("gallery/view/ImageList.jsp").forward(request, response);
 	}
 

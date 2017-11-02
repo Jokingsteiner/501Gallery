@@ -31,29 +31,17 @@ public class GalleryControl extends HttpServlet {
 		LinkedList<Gallery> galleryList = new LinkedList<Gallery>();
 		DBManager galleryDb = new DBManager();
 		String gallerySelect = "SELECT distinct gallery_id, gallery.name, gallery.description"
-							 +" FROM gallery " + "ORDER BY gallery.name DESC;";
+							 +" FROM gallery " + "ORDER BY gallery.name ASC;";
 		try {
 
 			ResultSet rs = galleryDb.executeQuery(gallerySelect, "OnlyPrepared");
 			while (rs.next())
 			{
 				Gallery gallery = new Gallery();
-				gallery.setId(rs.getInt(1));
+				gallery.setID(rs.getInt(1));
 				gallery.setName(rs.getString(2));
 				gallery.setDescription(rs.getString(3));
 				galleryList.add(gallery);
-			}
-			 galleryDb.close();
-
-			for (Gallery gallery: galleryList)
-			{
-				String imgSelect = "SELECT distinct image_id, title, link "+
-									"FROM image JOIN gallery ON gallery.gallery_id = image.gallery_id "+
-									"WHERE image.gallery_id = "+ gallery.getId()+";";
-
-				rs = galleryDb.executeQuery(imgSelect, "OnlyPrepared");
-				while (rs.next())
-					gallery.getImages().add(rs.getInt(1));
 			}
 			galleryDb.close();
 		} catch (SQLException e) {
@@ -65,6 +53,26 @@ public class GalleryControl extends HttpServlet {
 		}finally{
 			galleryDb.close();
 		}
+
+        for (Gallery gallery: galleryList)
+        {
+            String imgSelect = "SELECT DISTINCT image_id "+
+                    "FROM image JOIN gallery ON gallery.gallery_id = image.gallery_id "+
+                    "WHERE image.gallery_id = "+ gallery.getID()+";";
+            try {
+                ResultSet rs = galleryDb.executeQuery(imgSelect, "OnlyPrepared");
+                while (rs.next())
+                    gallery.getImages().add(rs.getInt(1));
+            } catch (SQLException e) {
+                System.err.println("Error");
+                while(e != null) {
+                    System.out.println("Error: " + e.getMessage());
+                    e = e.getNextException();
+                }
+            }finally{
+                galleryDb.close();
+            }
+        }
         return galleryList;
 	}
 
