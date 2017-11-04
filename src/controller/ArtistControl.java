@@ -7,16 +7,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.LinkedList;
 
 @WebServlet("/ArtistControl")
 public class ArtistControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int artist_id = Integer.valueOf(request.getParameter("artist_id"));
-		Artist artist = Artist.getArtistById(artist_id);
-        request.setAttribute("artist", artist);
-		request.getRequestDispatcher("gallery/view/ArtistDetail.jsp").forward(request, response);
+		String cond = (String)request.getAttribute("sql_condition");
+		LinkedList<Artist> artistList = Artist.fetchArtist(cond);
+        request.setAttribute("result", artistList);
+        request.setAttribute("artist_count", artistList.size());
+		request.getRequestDispatcher("gallery/view/ArtistList.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

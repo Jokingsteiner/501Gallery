@@ -1,4 +1,4 @@
-<%@ page import="java.util.*,domain.*,controller.*" pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.*,domain.*" pageEncoding="ISO-8859-1"%>
 <%
 //	int pageTotal = (int)request.getAttribute("pageTotal");
 //	int pageNum = (int)request.getAttribute("pageNum");
@@ -54,9 +54,9 @@
 									<div class="col-xs-6 col-md-2">
                                         <div id="Title"><%=img.getTitle()%></div>
 										<a href="<%=img.getLink()%>" id = "poster" class="thumbnail">
-                                            <img src="<%=img.getLink()%>" alt="img_id:<%=img.getID()%>">
+                                            <img src="<%=img.getLink()%>"  onError="this.onerror=null;this.src='gallery/image/thumbnail_unavailable.jpg';">
 										</a>
-                                        <a href="DetailControl?link='<%=img.getLink()%>'&image_id=<%=img.getID()%>">More...</a>
+                                        <a href="DetailControl?detail_type=image&image_id=<%=img.getID()%>">More...</a>
 									</div>
 
 									<%

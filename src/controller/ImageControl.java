@@ -16,10 +16,8 @@ public class ImageControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String cond = null;
-	    Boolean byGallery = false;
-        cond = (String)request.getAttribute("sql_condition");
-        byGallery = (Boolean) request.getAttribute("byGallery");
+        String cond = (String)request.getAttribute("sql_condition");
+        Boolean byGallery = (Boolean) request.getAttribute("byGallery");
 		LinkedList<Image> imageList = Image.fetchImages(cond);
 		request.setAttribute("result", imageList);
 		request.setAttribute("image_count", imageList.size());
@@ -27,7 +25,9 @@ public class ImageControl extends HttpServlet {
             request.setAttribute("gallery_name", request.getAttribute("gallery_name"));
             request.getRequestDispatcher("gallery/view/ImageList.jsp").forward(request, response);
         }
-	}
+        else
+            request.getRequestDispatcher("gallery/view/ImageList.jsp").forward(request, response);
+    }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

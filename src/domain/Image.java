@@ -33,12 +33,11 @@ public class Image {
 
     static public  LinkedList<Image> fetchImages(String cond) {
         LinkedList<Image> imgList = new LinkedList<Image>();
-        int cntImage = 0;
         DBManager imageDb = new DBManager();
         String imgsSelect = "SELECT DISTINCT image.image_id, image.title, image.link, image.gallery_id, image.artist_id, image.detail_id "
-                            +"FROM image, detail, artist "
-                            +"WHERE image.image_id = detail.image_id AND image.artist_id = artist.artist_id "
-                            + (cond != null?("AND " + cond):"")
+                            +"FROM image JOIN detail JOIN artist "
+                            +"ON image.image_id = detail.image_id AND image.artist_id = artist.artist_id "
+                            + (cond!=null?cond:"")
                             +"ORDER BY image.title ASC;";
         try {
             ResultSet rs = imageDb.executeQuery(imgsSelect, "OnlyPrepared");

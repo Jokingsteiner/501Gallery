@@ -27,12 +27,37 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <form class="navbar-form navbar-left" action="SearchControl" method="post">
+            <form class="navbar-form navbar-left" action="SearchControl" method="get">
+                <input type="hidden" name="forImage" value="true">
                 <div class="form-group">
-                    <input type="text" id="full-text-search" name="title" class="form-control" placeholder="...Image Name">
+                    <input type="text" name="type" class="form-control" size="10%" placeholder="...Image type">
                 </div>
-                <button type="submit" class="btn btn-default">Search</button>
+                <div class="form-group">
+                    <input type="text" name="artist_name" class="form-control" size="10%" placeholder="...Artist Name">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="location" class="form-control" size="10%" placeholder="...Location">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="year_start" class="form-control" size="10%" placeholder="...Start Year">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="year_end" class="form-control" size="10%" placeholder="...End Year">
+                </div>
+                <button type="submit" class="btn btn-default">Image</button>
             </form>
+
+            <form class="navbar-form navbar-left" action="SearchControl" method="get">
+                <input type="hidden" name="forArtist" value="true">
+                <div class="form-group">
+                    <input type="text" name="country" class="form-control" size="10%" placeholder="...Country">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="birth_year" class="form-control" size="10%" placeholder="...Birth Year">
+                </div>
+                <button type="submit" class="btn btn-default">Artist</button>
+            </form>
+
             <li><a href="view/Search.jsp">Advanced Search</a></li>
         </ul>
     </div>

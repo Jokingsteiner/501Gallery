@@ -4,6 +4,7 @@ import manager.DBManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 public class Artist {
     private int artist_id = 0;
@@ -25,6 +26,38 @@ public class Artist {
     public String getDescription() { return description; }
     public void setDescription(String desc) { this.description = desc; }
 
+    static public LinkedList<Artist> fetchArtist(String cond) {
+        LinkedList<Artist> artistList = new LinkedList<Artist>();
+        DBManager artistDb = new DBManager();
+        String artistQuery = "SELECT DISTINCT artist_id, name, birth_year, country, description "
+                           +"FROM artist "
+                           + (cond!=null?cond:"")
+                           +"ORDER BY artist.name ASC;";
+        try {
+            ResultSet rs = artistDb.executeQuery(artistQuery, "OnlyPrepared");
+            while (rs.next())
+            {
+                Artist artist = new Artist();
+                artist.setID(rs.getInt(1));
+                artist.setName(rs.getString(2));
+                artist.setBirthYear(rs.getInt(3));
+                artist.setCountry(rs.getString(4));
+                artist.setDescription(rs.getString(5));
+                artistList.add(artist);
+            }
+            artistDb.close();
+        } catch (SQLException e) {
+            System.err.println("Error");
+            while(e != null) {
+                System.out.println("Error: " + e.getMessage());
+                e = e.getNextException();
+            }
+        }finally{
+            artistDb.close();
+        }
+        return artistList;
+    }
+    
     static public Artist getArtistById(int artist_id) {
         Artist artist = new Artist();
         DBManager artistDb = new DBManager();

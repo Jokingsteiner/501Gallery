@@ -11,7 +11,7 @@
         <title>Image Detail</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/gallery/sources/css/poster_list.css">
     </head>
-  
+
     <body>
         <jsp:include page="${pageContext.request.contextPath}/gallery/view/shared/Header.jsp" />
         <div class="container">

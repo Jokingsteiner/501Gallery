@@ -5,6 +5,7 @@ public class Condition {
     private int yearStart = -1;
     private int yearEnd = -1;
     private String artistName = "";
+    private String location = "";
     private int galleryID = -1;
     private String country = "";
     private int birthYear = -1;
@@ -33,20 +34,28 @@ public class Condition {
         this.yearEnd = yearEnd;
     }
 
-    public int getGalleryID() {
-        return galleryID;
-    }
-
-    public void setGalleryID(int galleryID) {
-        this.galleryID = galleryID;
-    }
-
     public String getArtistName() {
         return artistName;
     }
 
     public void setArtistName(String artistName) {
         this.artistName = artistName;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public int getGalleryID() {
+        return galleryID;
+    }
+
+    public void setGalleryID(int galleryID) {
+        this.galleryID = galleryID;
     }
 
     public String getCountry() {

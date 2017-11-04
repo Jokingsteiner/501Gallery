@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Image Detail</title>
+        <title>Artist  Detail</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/gallery/sources/css/poster_list.css">
     </head>
   
