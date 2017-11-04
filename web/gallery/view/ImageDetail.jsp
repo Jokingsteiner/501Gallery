@@ -17,7 +17,7 @@
         <div class="container">
             <div class="row">
                 <div class="row-items col-sm-6">
-                    <img id="photo" alt="gallery/image/thumbnail_unavailable.jpg" src="<%=img.getLink()%>"/><br>
+                    <img id="photo" src="<%=img.getLink()%>" onError="this.onerror=null;this.src='gallery/image/thumbnail_unavailable.jpg';"><br>
                 </div>
 
                 <div class="info-panel row-items col-sm-6">
@@ -29,7 +29,7 @@
                             <div class="col-sm-12 col-xs-12" role="group" aria-label="...">
                                 <ul class="list-group col-lg-6 col-sm-12">
                                     <li class="list-group-item">ID: <%=detail.getImgID()%></li>
-                                    <li class="list-group-item">Artist: <a href="ArtistControl?artist_id=<%=img.getArtist()%>"><%=artist.getName()%></a></li>
+                                    <li class="list-group-item">Artist: <a href="DetailControl?detail_type=artist&artist_id=<%=img.getArtist()%>"><%=artist.getName()%></a></li>
                                     <li class="list-group-item">Year: <%=detail.getYear()%></li>
                                     <li class="list-group-item">Type : <%=detail.getType()%></li>
                                     <li class="list-group-item">Size : <%=detail.getWidth()%> x <%=detail.getHeight()%></li>
