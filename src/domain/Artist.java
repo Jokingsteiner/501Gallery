@@ -2,6 +2,10 @@ package domain;
 
 import manager.DBManager;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -84,5 +88,70 @@ public class Artist {
             artistDb.close();
         }
         return artist;
+    }
+
+    public static void insertArtist(String name, String birthYear, String country, String description, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String message;
+        name = name.trim();
+        birthYear = birthYear.trim();
+        country = country.trim();
+        description = description.trim();
+
+        if(birthYear.equals(""))
+            birthYear = "0000";
+
+        if ("".equals(name)) {
+            request.setAttribute("error",true);
+            message = "Please put artist name.";
+            request.setAttribute("message", message);
+            request.getRequestDispatcher("gallery/view/AddGallery.jsp").forward(request,response);
+            return;
+        }
+
+        String checkExsit = "SELECT COUNT(*) FROM artist WHERE name = \"" + name + "\"";
+        DBManager db = new DBManager();
+        ResultSet rs = db.executeQuery(checkExsit);
+
+        try {
+            rs.next();
+            if (rs.getInt(1) > 0)
+            {
+                System.out.println(rs.getInt(1));
+                request.setAttribute("error",true);
+                message = "Error: Artist existed.";
+                request.setAttribute("message", message);
+                request.getRequestDispatcher("gallery/view/AddGallery.jsp").forward(request,response);
+                return;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error");
+            while(e != null) {
+                System.out.println("Error: " + e.getMessage());
+                e = e.getNextException();
+            }
+        }
+        db.close();
+
+        String sql = "INSERT INTO artist (name, birth_year, country, description) " +
+                     "VALUES (?, ?, ?, ?)";
+
+        String param[] = {name, birthYear, country, description};
+        int  retVal = db.executeUpdate(sql, param);
+        db.close();
+
+        if (retVal == -1) { // format incorrect
+            request.setAttribute("error",true);
+            message = "Please make sure you entered all input in correct format.";
+        }
+        else if (retVal == 0) {
+            request.setAttribute("error",false);
+            message = "Adding new artist failed.";
+        }
+        else {
+            request.setAttribute("error",false);
+            message = "Success: A new artist inserted.";
+        }
+        request.setAttribute("message",message);
+        request.getRequestDispatcher("gallery/view/AddGallery.jsp").forward(request,response);
     }
 }

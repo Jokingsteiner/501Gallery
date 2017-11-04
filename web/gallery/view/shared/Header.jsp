@@ -58,7 +58,7 @@
                 <button type="submit" class="btn btn-default">Artist</button>
             </form>
 
-            <li><a href="view/Search.jsp">Advanced Search</a></li>
+            <li><a href="gallery/view/AddGallery.jsp">Insert</a></li>
         </ul>
     </div>
 </nav>

@@ -9,12 +9,11 @@
 
 <html>
     <head>
-        <title>Add Star</title>
+        <title>New Gallery</title>
     </head>
     <body>
-    <jsp:include page="/view/partial/DashboardHeader.jsp" />
+    <jsp:include page="${pageContext.request.contextPath}/gallery/view/shared/Header.jsp" />
     <div class="container">
-        <h1 align="center" class="my-title">Add Movie Star</h1>
         <% if(request.getAttribute("error") != null) { %>
             <% if((Boolean) request.getAttribute("error")) { %>
                 <div class="alert alert-danger">
@@ -27,46 +26,64 @@
             <% } %>
         <% } %>
 
-        <form action="/AddStarControl" method="post">
+        <h1 align="center" class="my-title">Add Gallery</h1>
+        <form action="AddGalleryControl" method="post">
             <div class="form-group">
-                <label>Star First Name:</label>
+                <label>Gallery Name:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" name="firstName" class="form-control" placeholder="...first name">
+                    <input type="text" name="name" class="form-control" placeholder="...Gallery Name">
                 </div>
             </div>
 
             <div class="form-group">
-                <label>Star Last Name:</label>
+                <label>Description:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-users"></i></span>
-                    <input type="text" name="lastName" class="form-control" placeholder="...last name">
+                    <input type="text" name="description" class="form-control" style= "height: 100px;" placeholder="...Description">
                 </div>
             </div>
-
-            <div class="form-group">
-                <label>Date of Birth:</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
-                    <input type="text" name="dob" class="form-control" placeholder="...date of birthday(YYYY-MM-DD)">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Photo URL:</label>
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-play"></i></span>
-                    <input type="text" name="photo_URL" class="form-control" placeholder="...put photo url here">
-                </div>
-            </div>
-
             <br />
-
             <button class="btn btn-default" type="submit"><i class="fa fa-search"></i> Submit</button>
             <button class="btn btn-default" type="reset"><i class="fa fa-refresh"></i> Reset</button>
-
         </form>
-        <jsp:include page="/view/partial/Scripts.jsp" />
+
+        <h1 align="center" class="my-title">Add Artist</h1>
+        <form action="AddArtistControl" method="post">
+            <div class="form-group">
+                <label>Artist Name:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                    <input type="text" name="name" class="form-control" placeholder="...Artist Name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Birth Year:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                    <input type="text" name="birth_year_str" class="form-control" placeholder="...Birth Year">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Country:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                    <input type="text" name="country" class="form-control" placeholder="...Country">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Description:</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                    <input type="text" name="description" class="form-control" style= "height: 100px;" placeholder="...Description">
+                </div>
+            </div>
+            <br />
+            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i> Submit</button>
+            <button class="btn btn-default" type="reset"><i class="fa fa-refresh"></i> Reset</button>
+        </form>
+        <jsp:include page="/gallery/view/shared/Scripts.jsp" />
     </div>
     </body>
 </html>

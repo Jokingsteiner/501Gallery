@@ -2,6 +2,10 @@ package domain;
 
 import manager.DBManager;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -103,4 +107,64 @@ public class Gallery {
 		}
 		return galleryName;
 	}
+
+    public static void insertGallery(String name, String description, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String message;
+        name = name.trim();
+        description = description.trim();
+
+        if ("".equals(name)) {
+            request.setAttribute("error",true);
+            message = "Please input gallery name.";
+            request.setAttribute("message", message);
+            request.getRequestDispatcher("gallery/view/AddGallery.jsp").forward(request,response);
+            return;
+        }
+
+        String checkExsit = "SELECT COUNT(*) FROM gallery WHERE name = \"" + name + "\"";
+        DBManager db = new DBManager();
+        ResultSet rs = db.executeQuery(checkExsit);
+
+        try {
+            rs.next();
+            if (rs.getInt(1) > 0)
+            {
+                System.out.println(rs.getInt(1));
+                request.setAttribute("error",true);
+                message = "Error: Gallery existed.";
+                request.setAttribute("message", message);
+                request.getRequestDispatcher("gallery/view/AddGallery.jsp").forward(request,response);
+                return;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error");
+            while(e != null) {
+                System.out.println("Error: " + e.getMessage());
+                e = e.getNextException();
+            }
+        }
+        db.close();
+
+        String sql = "INSERT INTO gallery (name, description) " +
+                "VALUES (?, ?)";
+
+        String param[] = {name, description};
+        int  retVal = db.executeUpdate(sql, param);
+        db.close();
+
+        if (retVal == -1) { // format incorrect
+            request.setAttribute("error",true);
+            message = "Please make sure you entered all input in correct format.";
+        }
+        else if (retVal == 0) {
+            request.setAttribute("error",false);
+            message = "Adding new gallery failed.";
+        }
+        else {
+            request.setAttribute("error",false);
+            message = "Success: A new gallery inserted.";
+        }
+        request.setAttribute("message",message);
+        request.getRequestDispatcher("gallery/view/AddGallery.jsp").forward(request,response);
+    }
 }

@@ -28,21 +28,22 @@ public class SearchControl extends HttpServlet {
 
 		// Set parameters
         Condition condition = new Condition();
-        if(type != null && type != "") condition.setType(type);
-        if(yearStart != null && yearStart != "") condition.setYearStart(Integer.valueOf(yearStart));
-        if(yearEnd != null && yearEnd != "") condition.setYearEnd(Integer.valueOf(yearEnd));
-        if(artistName != null && artistName != "") condition.setArtistName(artistName);
-        if(location != null && location != "") condition.setLocation(location);
-        if(galleryID != null && galleryID != "") condition.setGalleryID(Integer.valueOf(galleryID));
-        if(country != null && country != "") condition.setCountry(country);
-        if(birthYear != null && birthYear != "") condition.setBirthYear(Integer.valueOf(birthYear));
+        if(type != null && !type.equals("")) condition.setType(type);
+        if(yearStart != null && !yearStart.equals("")) condition.setYearStart(Integer.valueOf(yearStart));
+        if(yearEnd != null && !yearEnd.equals("")) condition.setYearEnd(Integer.valueOf(yearEnd));
+        if(artistName != null && !artistName.equals("")) condition.setArtistName(artistName);
+        if(location != null && !location.equals("")) condition.setLocation(location);
+        if(galleryID != null && !galleryID.equals("")) condition.setGalleryID(Integer.valueOf(galleryID));
+        if(country != null && !country.equals("")) condition.setCountry(country);
+        if(birthYear != null && !birthYear.equals("")) condition.setBirthYear(Integer.valueOf(birthYear));
 
         if (request.getParameter("forImage") != null && "true".equals(request.getParameter("forImage"))) {
             String imgCond = generateImageCond(condition);
             request.setAttribute("sql_condition", imgCond);
             request.setAttribute("byGallery", byGallery);
             if (byGallery)
-                request.setAttribute("gallery_name", Gallery.getGalleryNameByID(Integer.valueOf(request.getParameter("gallery_id"))));
+                // I believe this (String) is not redundant, removing it may cause NumberFormat exception
+                request.setAttribute("gallery_name", Gallery.getGalleryNameByID(Integer.valueOf((String)request.getParameter("gallery_id"))));
             request.getRequestDispatcher("ImageControl").forward(request, response);
         }
         else if (request.getParameter("forArtist") != null && "true".equals(request.getParameter("forArtist"))) {
@@ -108,7 +109,6 @@ public class SearchControl extends HttpServlet {
             boolean isFirstCondition = true;
             sqlCondition += "WHERE ";
             if (country != null && !"".equals(country)) {
-                sqlCondition += isFirstCondition ? "" : "AND ";
                 sqlCondition += "artist.country LIKE \"" + "%" + country + "%\" ";
                 isFirstCondition = false;
             }
