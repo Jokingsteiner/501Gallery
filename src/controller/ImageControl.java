@@ -1,5 +1,6 @@
 package controller;
 
+import domain.Gallery;
 import domain.Image;
 
 import javax.servlet.ServletException;
@@ -15,15 +16,17 @@ public class ImageControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String gallery_id_str = request.getParameter("gallery_id_str");
-		String galleryName = request.getParameter("gallery_name");
-        Object[] res = Image.fetchImagesByGallery(gallery_id_str);
-		LinkedList<Image> imageList = (LinkedList<Image>) res[0];
-        int imageCount = (Integer) res[1];
+        String cond = null;
+	    Boolean byGallery = false;
+        cond = (String)request.getAttribute("sql_condition");
+        byGallery = (Boolean) request.getAttribute("byGallery");
+		LinkedList<Image> imageList = Image.fetchImages(cond);
 		request.setAttribute("result", imageList);
-		request.setAttribute("image_count", imageCount);
-		request.setAttribute("gallery_name", galleryName);
-		request.getRequestDispatcher("gallery/view/ImageList.jsp").forward(request, response);
+		request.setAttribute("image_count", imageList.size());
+        if(byGallery) {
+            request.setAttribute("gallery_name", request.getAttribute("gallery_name"));
+            request.getRequestDispatcher("gallery/view/ImageList.jsp").forward(request, response);
+        }
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -31,14 +31,15 @@ public class Image {
     public int getDetail() { return detail_id; }
     public void setDetail(int detail_id) { this.detail_id = detail_id; }
 
-    static public Object[] fetchImagesByGallery(String gallery_id_str) {
+    static public  LinkedList<Image> fetchImages(String cond) {
         LinkedList<Image> imgList = new LinkedList<Image>();
         int cntImage = 0;
         DBManager imageDb = new DBManager();
-        String imgsSelect = "SELECT DISTINCT image_id, title, link, gallery_id, artist_id, detail_id "
-                            +"FROM image "
-                            +"WHERE gallery_id = " + gallery_id_str + " "
-                            +"ORDER BY title ASC;";
+        String imgsSelect = "SELECT DISTINCT image.image_id, image.title, image.link, image.gallery_id, image.artist_id, image.detail_id "
+                            +"FROM image, detail, artist "
+                            +"WHERE image.image_id = detail.image_id AND image.artist_id = artist.artist_id "
+                            + (cond != null?("AND " + cond):"")
+                            +"ORDER BY image.title ASC;";
         try {
             ResultSet rs = imageDb.executeQuery(imgsSelect, "OnlyPrepared");
             while (rs.next())
@@ -62,25 +63,7 @@ public class Image {
         }finally{
             imageDb.close();
         }
-
-        String cntImg = "SELECT COUNT(DISTINCT image_id) "
-                       +"FROM image "
-                       +"WHERE gallery_id = " + gallery_id_str + ";";
-        try {
-            ResultSet rs = imageDb.executeQuery(cntImg, "OnlyPrepared");
-            while (rs.next())
-                cntImage = rs.getInt(1);
-        } catch (SQLException e) {
-            System.err.println("Error");
-            while(e != null) {
-                System.out.println("Error: " + e.getMessage());
-                e = e.getNextException();
-            }
-        }finally{
-            imageDb.close();
-        }
-        Object[] output ={imgList, cntImage};
-        return output;
+        return imgList;
     }
 
     static public Image getImageById(int img_id) {
