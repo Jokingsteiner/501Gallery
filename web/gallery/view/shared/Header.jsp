@@ -58,7 +58,8 @@
                 <button type="submit" class="btn btn-default">Artist</button>
             </form>
 
-            <li><a href="gallery/view/AddGallery.jsp">Insert</a></li>
+            <li><a href="gallery/view/AddGalleryArtist.jsp">Insert Info</a></li>
+            <li><a href="gallery/view/AddImage.jsp">Insert Image</a></li>
         </ul>
     </div>
 </nav>

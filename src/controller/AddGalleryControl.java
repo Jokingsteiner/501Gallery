@@ -20,6 +20,7 @@ public class AddGalleryControl extends HttpServlet{
         String name = request.getParameter("name");
         String description = request.getParameter("description");
 
+        // avoid exception by invalid HTTP Get
         if (name == null) name = "";
         if (description == null) description = "";
 

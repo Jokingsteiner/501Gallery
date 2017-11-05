@@ -23,6 +23,7 @@ public class AddArtistControl extends HttpServlet{
         String country = request.getParameter("country");
         String description = request.getParameter("description");
 
+        // avoid exception by invalid HTTP Get
         if (name == null) name = "";
         if (birthYear == null) birthYear = "";
         if (country == null) country = "";

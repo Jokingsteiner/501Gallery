@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class Gallery {
-	private int gallery_id = 0;
+	private int gallery_id = -1;
 	private String name = null;
 	private String description = null;
 	private LinkedList<Integer> images = null;
@@ -40,7 +40,7 @@ public class Gallery {
 		LinkedList<Gallery> galleryList = new LinkedList<Gallery>();
 		DBManager galleryDb = new DBManager();
 		String gallerySelect = "SELECT distinct gallery_id, gallery.name, gallery.description"
-				+" FROM gallery " + "ORDER BY gallery.name ASC;";
+						  +" FROM gallery " + "ORDER BY gallery.name ASC;";
 		try {
 
 			ResultSet rs = galleryDb.executeQuery(gallerySelect, "OnlyPrepared");
@@ -117,7 +117,7 @@ public class Gallery {
             request.setAttribute("error",true);
             message = "Please input gallery name.";
             request.setAttribute("message", message);
-            request.getRequestDispatcher("gallery/view/AddGallery.jsp").forward(request,response);
+            request.getRequestDispatcher("gallery/view/AddGalleryArtist.jsp").forward(request,response);
             return;
         }
 
@@ -133,7 +133,7 @@ public class Gallery {
                 request.setAttribute("error",true);
                 message = "Error: Gallery existed.";
                 request.setAttribute("message", message);
-                request.getRequestDispatcher("gallery/view/AddGallery.jsp").forward(request,response);
+                request.getRequestDispatcher("gallery/view/AddGalleryArtist.jsp").forward(request,response);
                 return;
             }
         } catch (SQLException e) {
@@ -165,6 +165,6 @@ public class Gallery {
             message = "Success: A new gallery inserted.";
         }
         request.setAttribute("message",message);
-        request.getRequestDispatcher("gallery/view/AddGallery.jsp").forward(request,response);
+        request.getRequestDispatcher("gallery/view/AddGalleryArtist.jsp").forward(request,response);
     }
 }

@@ -1,15 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: cjk98
-  Date: 5/11/2017
-  Time: 11:39 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
     <head>
-        <title>New Gallery</title>
+        <title>Add Gallery & Artist</title>
     </head>
     <body>
     <jsp:include page="${pageContext.request.contextPath}/gallery/view/shared/Header.jsp" />

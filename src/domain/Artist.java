@@ -11,9 +11,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class Artist {
-    private int artist_id = 0;
+    private int artist_id = -1;
     private String name = null;
-    private int birth_year = 0;
+    private int birth_year = -1;
     private String country = null;
     private String description = null;
 
@@ -102,9 +102,9 @@ public class Artist {
 
         if ("".equals(name)) {
             request.setAttribute("error",true);
-            message = "Please put artist name.";
+            message = "Please input artist name.";
             request.setAttribute("message", message);
-            request.getRequestDispatcher("gallery/view/AddGallery.jsp").forward(request,response);
+            request.getRequestDispatcher("gallery/view/AddGalleryArtist.jsp").forward(request,response);
             return;
         }
 
@@ -120,7 +120,7 @@ public class Artist {
                 request.setAttribute("error",true);
                 message = "Error: Artist existed.";
                 request.setAttribute("message", message);
-                request.getRequestDispatcher("gallery/view/AddGallery.jsp").forward(request,response);
+                request.getRequestDispatcher("gallery/view/AddGalleryArtist.jsp").forward(request,response);
                 return;
             }
         } catch (SQLException e) {
@@ -152,6 +152,6 @@ public class Artist {
             message = "Success: A new artist inserted.";
         }
         request.setAttribute("message",message);
-        request.getRequestDispatcher("gallery/view/AddGallery.jsp").forward(request,response);
+        request.getRequestDispatcher("gallery/view/AddGalleryArtist.jsp").forward(request,response);
     }
 }

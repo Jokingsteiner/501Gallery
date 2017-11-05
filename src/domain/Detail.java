@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Detail {
-    private int deatil_id = 0;
-    private int image_id = 0;
+    private int deatil_id = -1;
+    private int image_id = -1;
     private int year = 0;
     private String type = null;
     private String width = null;

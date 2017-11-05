@@ -29,7 +29,7 @@ public class DBManager {
     {
 		long startTime = System.nanoTime();
 		System.out.println(sql);
-		//ResultSet rs;
+//		ResultSet rs;
 		switch(type) {
 			case "OnlyPooled":
 				rs = executeQuery_pooled_noPrepared(sql);
@@ -138,7 +138,7 @@ public class DBManager {
             rs = pst.executeQuery();
         } catch (SQLException e) {
             System.err.println("Error");
-            while(e != null) {
+			while(e != null) {
                 System.out.println("Error: " + e.getMessage());
                 e = e.getNextException();
             }
