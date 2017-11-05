@@ -25,8 +25,8 @@ public class SearchControl extends HttpServlet {
         String galleryID = request.getParameter("gallery_id");
         String country = request.getParameter("country");
         String birthYear = request.getParameter("birth_year");
-
-		// Set parameters
+        System.out.println("Gallery_id = " + galleryID);
+        // Set parameters
         Condition condition = new Condition();
         if(type != null && !type.equals("")) condition.setType(type);
         if(yearStart != null && !yearStart.equals("")) condition.setYearStart(Integer.valueOf(yearStart));
@@ -51,6 +51,7 @@ public class SearchControl extends HttpServlet {
             request.setAttribute("sql_condition", artistCond);
             request.getRequestDispatcher("ArtistControl").forward(request, response);
         }
+        byGallery = "false";
 	}
 
     private String generateImageCond (Condition cond){

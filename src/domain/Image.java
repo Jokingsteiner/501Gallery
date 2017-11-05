@@ -100,7 +100,7 @@ public class Image {
         return img;
     }
 
-    public static void insertImage(String title, String link, String year, String type, String width, String height,
+    static public void insertImage(String title, String link, String year, String type, String width, String height,
                                    String location, String description, String galleryID, String artistID,
                                    HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String message;
@@ -222,7 +222,7 @@ public class Image {
             db.close();
             if (retVal == -1) { // format incorrect
                 String deleteImageSQL = "DELETE FROM image "
-                                       +"WHERE image_title = \'" + title + "\';";
+                                       +"WHERE title = \'" + title + "\';";
 
                 db.executeUpdate(deleteImageSQL, paramNull);
 
@@ -233,7 +233,7 @@ public class Image {
             }
             else if (retVal == 0) {
                 String deleteImageSQL = "DELETE FROM image "
-                        +"WHERE image_title = \'" + title + "\';";
+                        +"WHERE title = \'" + title + "\';";
                 db.executeUpdate(deleteImageSQL, paramNull);
                 request.setAttribute("error",false);
                 message = "Adding new image failed.";
@@ -252,7 +252,7 @@ public class Image {
                     db.close();
                 } catch (SQLException e) {
                     String deleteImageSQL = "DELETE FROM image "
-                            +"WHERE image_title = \'" + title + "\';";
+                            +"WHERE title = \'" + title + "\';";
                     db.executeUpdate(deleteImageSQL, paramNull);
                     System.err.println("Error");
                     while(e != null) {
@@ -264,13 +264,13 @@ public class Image {
                 }
 
                 String updateImgSQL = "UPDATE image "
-                                     +"SET detail_id = " + Integer.toString(detailID)
+                                     +"SET detail_id = " + Integer.toString(detailID) + " "
                                      +"WHERE image_id = "+ Integer.toString(imageID) + ";";
                 retVal = db.executeUpdate(updateImgSQL, paramNull);
 
                 if (retVal == 0) {
                     String deleteImageSQL = "DELETE FROM image "
-                            +"WHERE image_title = \'" + title + "\';";
+                            +"WHERE title = \'" + title + "\';";
                     db.executeUpdate(deleteImageSQL, paramNull);
                     request.setAttribute("error",false);
                     message = "Adding new image failed.";
@@ -332,6 +332,62 @@ public class Image {
             else {
                 request.setAttribute("error",false);
                 message = "Delete image successfully.";
+            }
+            request.setAttribute("message", message);
+            request.getRequestDispatcher(returnURL).forward(request,response);
+        }
+    }
+
+    public static void modifyImage(int imgID, String title, String link, String returnURL, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String message;
+        if(imgID > 0) {
+            String checkExsit = "SELECT COUNT(*) FROM image WHERE image_id = " + Integer.toString(imgID) + ";";
+            DBManager db = new DBManager();
+            ResultSet rs = db.executeQuery(checkExsit);
+
+            try {
+                rs.next();
+                if (rs.getInt(1) == 0)
+                {
+                    System.out.println(rs.getInt(1));
+                    request.setAttribute("error",true);
+                    message = "Error: Image not existed.";
+                    request.setAttribute("message", message);
+                    request.getRequestDispatcher(returnURL).forward(request,response);
+                    return;
+                }
+            } catch (SQLException e) {
+                System.err.println("Error");
+                while(e != null) {
+                    System.out.println("Error: " + e.getMessage());
+                    e = e.getNextException();
+                }
+            }
+            db.close();
+
+            title = title.trim();
+            link = link.trim();
+
+             if (title.equals(""))
+                 title = Image.getImageById(imgID).getTitle();
+             if (link.equals(""))
+                 link = Image.getImageById(imgID).getLink();
+
+            String paramNull[] = {};
+            String updateImgSQL = "UPDATE image "
+                                 +"SET title = \'" + title + "\', "
+                                 +"link = \'" + link + "\' "
+                                 +"WHERE image_id = "+ Integer.toString(imgID) + ";";
+            int retVal = db.executeUpdate(updateImgSQL, paramNull);
+            db.close();
+
+            if (retVal <= 0) {
+                request.setAttribute("error",true);
+                message = "Update Image failed.";
+            }
+            else {
+                request.setAttribute("error",false);
+                message = "Update image successfully.";
             }
             request.setAttribute("message", message);
             request.getRequestDispatcher(returnURL).forward(request,response);

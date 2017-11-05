@@ -94,8 +94,8 @@ public class Gallery {
 		try {
 			ResultSet rs = galleryDb.executeQuery(nameQuery, "OnlyPrepared");
 			while (rs.next())
-                galleryName = rs.getString(1);
-            galleryDb.close();
+				galleryName = rs.getString(1);
+			galleryDb.close();
 		} catch (SQLException e) {
 			System.err.println("Error");
 			while(e != null) {
@@ -103,9 +103,64 @@ public class Gallery {
 				e = e.getNextException();
 			}
 		}finally{
-            galleryDb.close();
+			galleryDb.close();
 		}
 		return galleryName;
+	}
+
+	static public Gallery getGalleryByID(int galleryID) {
+		Gallery gallery = new Gallery();
+		DBManager galleryDb = new DBManager();
+		String gallerySelect = "SELECT DISTINCT gallery_id, name, description "
+				+"FROM gallery "
+				+"WHERE gallery_id = " + Integer.toString(galleryID) + ";";
+		try {
+			ResultSet rs = galleryDb.executeQuery(gallerySelect, "OnlyPrepared");
+			while (rs.next())
+			{
+				gallery.setID(rs.getInt(1));
+				gallery.setName(rs.getString(2));
+				gallery.setDescription(rs.getString(3));
+			}
+			galleryDb.close();
+		} catch (SQLException e) {
+			System.err.println("Error");
+			while(e != null) {
+				System.out.println("Error: " + e.getMessage());
+				e = e.getNextException();
+			}
+		}finally{
+			galleryDb.close();
+		}
+		return gallery;
+	}
+
+	static public Gallery getGalleryByName(String galleryName) {
+		Gallery gallery = new Gallery();
+		DBManager galleryDb = new DBManager();
+		String gallerySelect = "SELECT DISTINCT gallery_id, name, description "
+						      +"FROM gallery "
+						      +"WHERE name = \'" + galleryName + "\';";
+		try {
+
+			ResultSet rs = galleryDb.executeQuery(gallerySelect, "OnlyPrepared");
+			while (rs.next())
+			{
+				gallery.setID(rs.getInt(1));
+				gallery.setName(rs.getString(2));
+				gallery.setDescription(rs.getString(3));
+			}
+			galleryDb.close();
+		} catch (SQLException e) {
+			System.err.println("Error");
+			while(e != null) {
+				System.out.println("Error: " + e.getMessage());
+				e = e.getNextException();
+			}
+		}finally{
+			galleryDb.close();
+		}
+		return gallery;
 	}
 
     public static void insertGallery(String name, String description, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -167,4 +222,59 @@ public class Gallery {
         request.setAttribute("message",message);
         request.getRequestDispatcher("view/AddGalleryArtist.jsp").forward(request,response);
     }
+
+	static public void modifyGallery(int galleryID, String name, String description, String returnURL, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String message;
+		if(galleryID > 0) {
+			String checkExsit = "SELECT COUNT(*) FROM gallery WHERE gallery_id = " + Integer.toString(galleryID) + ";";
+			DBManager db = new DBManager();
+			ResultSet rs = db.executeQuery(checkExsit);
+
+			try {
+				rs.next();
+				if (rs.getInt(1) == 0)
+				{
+					System.out.println(rs.getInt(1));
+					request.setAttribute("error",true);
+					message = "Error: Gallery not existed.";
+					request.setAttribute("message", message);
+					request.getRequestDispatcher(returnURL).forward(request,response);
+					return;
+				}
+			} catch (SQLException e) {
+				System.err.println("Error");
+				while(e != null) {
+					System.out.println("Error: " + e.getMessage());
+					e = e.getNextException();
+				}
+			}
+			db.close();
+
+			name = name.trim();
+			description = description.trim();
+
+			if (name.equals(""))
+				name = Gallery.getGalleryByID(galleryID).getName();
+			if (description.equals(""))
+				description = Gallery.getGalleryByID(galleryID).getDescription();
+
+			String updateImgSQL = "UPDATE gallery "
+								 +"SET name = ?, description = ? "
+								 +"WHERE gallery_id = "+ Integer.toString(galleryID) + ";";
+			String param[] = {name, description};
+			int retVal = db.executeUpdate(updateImgSQL, param);
+			db.close();
+
+			if (retVal <= 0) {
+				request.setAttribute("error",true);
+				message = "Update Gallery failed.";
+			}
+			else {
+				request.setAttribute("error",false);
+				message = "Update Gallery successfully.";
+			}
+			request.setAttribute("message", message);
+			request.getRequestDispatcher(returnURL).forward(request,response);
+		}
+	}
 }

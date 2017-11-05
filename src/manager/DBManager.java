@@ -28,7 +28,7 @@ public class DBManager {
 	public ResultSet executeQuery(String sql, String type)
     {
 		long startTime = System.nanoTime();
-		System.out.println(sql);
+//		System.out.println(sql);
 //		ResultSet rs;
 		switch(type) {
 			case "OnlyPooled":
@@ -148,7 +148,7 @@ public class DBManager {
 
 	public int executeUpdate(String sql, String params[])
 	{
-		System.out.println(sql);
+//		System.out.println(sql);
 		try {
 
             Context initCtx = new InitialContext();

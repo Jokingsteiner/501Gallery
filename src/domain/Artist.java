@@ -154,4 +154,67 @@ public class Artist {
         request.setAttribute("message",message);
         request.getRequestDispatcher("view/AddGalleryArtist.jsp").forward(request,response);
     }
+
+    public static void modifyArtist(int artistID, String name, String birthYear, String country, String description,
+                                    String returnURL, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String message;
+        if(artistID > 0) {
+            String checkExsit = "SELECT COUNT(*) FROM artist WHERE artist_id = " + Integer.toString(artistID) + ";";
+            DBManager db = new DBManager();
+            ResultSet rs = db.executeQuery(checkExsit);
+
+            try {
+                rs.next();
+                if (rs.getInt(1) == 0)
+                {
+                    System.out.println(rs.getInt(1));
+                    request.setAttribute("error",true);
+                    message = "Error: Artist not existed.";
+                    request.setAttribute("message", message);
+                    request.getRequestDispatcher(returnURL).forward(request,response);
+                    return;
+                }
+            } catch (SQLException e) {
+                System.err.println("Error");
+                while(e != null) {
+                    System.out.println("Error: " + e.getMessage());
+                    e = e.getNextException();
+                }
+            }
+            db.close();
+
+            name = name.trim();
+            birthYear = birthYear.trim();
+            country = country.trim();
+            description = description.trim();
+
+            Artist orgArtist = Artist.getArtistById(artistID);
+            if (name.equals(""))
+                name = orgArtist.getName();
+            if (birthYear.equals(""))
+                birthYear = Integer.toString(orgArtist.getBirthYear());
+            if (country.equals(""))
+                country = orgArtist.getCountry();
+            if (description.equals(""))
+                description = orgArtist.getDescription();
+
+            String updateArtistSQL = "UPDATE artist "
+                                    +"SET name = ?, birth_year = ?, country = ?, description = ? "
+                                    +"WHERE artist_id = "+ Integer.toString(artistID) + ";";
+            String param[] = {name, birthYear, country, description};
+            int retVal = db.executeUpdate(updateArtistSQL, param);
+            db.close();
+
+            if (retVal <= 0) {
+                request.setAttribute("error",true);
+                message = "Update Artist failed.";
+            }
+            else {
+                request.setAttribute("error",false);
+                message = "Update Artist successfully.";
+            }
+            request.setAttribute("message", message);
+            request.getRequestDispatcher(returnURL).forward(request,response);
+        }
+    }
 }
