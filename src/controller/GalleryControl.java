@@ -13,14 +13,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-@WebServlet("/GalleryControl")
+@WebServlet("/gallery/GalleryControl")
 public class GalleryControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LinkedList<Gallery> galleryList = Gallery.fetchGalleries();
 		request.setAttribute("result", galleryList);
-		request.getRequestDispatcher("gallery/view/GalleryList.jsp").forward(request, response);
+		request.getRequestDispatcher("view/GalleryList.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

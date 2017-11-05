@@ -122,7 +122,7 @@ public class Image {
             message = "Please input image title.";
             request.setAttribute("error",true);
             request.setAttribute("message", message);
-            request.getRequestDispatcher("gallery/view/AddImage.jsp").forward(request,response);
+            request.getRequestDispatcher("view/AddImage.jsp").forward(request,response);
             return;
         }
 
@@ -130,7 +130,7 @@ public class Image {
             message = "Please input image URL.";
             request.setAttribute("error",true);
             request.setAttribute("message", message);
-            request.getRequestDispatcher("gallery/view/AddImage.jsp").forward(request,response);
+            request.getRequestDispatcher("view/AddImage.jsp").forward(request,response);
             return;
         }
 
@@ -138,7 +138,7 @@ public class Image {
             message = "Please select a Gallery.";
             request.setAttribute("error",true);
             request.setAttribute("message", message);
-            request.getRequestDispatcher("gallery/view/AddImage.jsp").forward(request,response);
+            request.getRequestDispatcher("view/AddImage.jsp").forward(request,response);
             return;
         }
 
@@ -146,7 +146,7 @@ public class Image {
             message = "Please select a Artist.";
             request.setAttribute("error",true);
             request.setAttribute("message", message);
-            request.getRequestDispatcher("gallery/view/AddImage.jsp").forward(request,response);
+            request.getRequestDispatcher("view/AddImage.jsp").forward(request,response);
             return;
         }
 
@@ -162,7 +162,7 @@ public class Image {
                 message = "Error: Image existed.";
                 request.setAttribute("error",true);
                 request.setAttribute("message", message);
-                request.getRequestDispatcher("gallery/view/AddImage.jsp").forward(request,response);
+                request.getRequestDispatcher("view/AddImage.jsp").forward(request,response);
                 return;
             }
         } catch (SQLException e) {
@@ -187,13 +187,13 @@ public class Image {
             request.setAttribute("error",true);
             message = "Please make sure you entered all input in correct format.";
             request.setAttribute("message",message);
-            request.getRequestDispatcher("gallery/view/AddImage.jsp").forward(request,response);
+            request.getRequestDispatcher("view/AddImage.jsp").forward(request,response);
         }
         else if (retVal == 0) {
             request.setAttribute("error",false);
             message = "Adding new image failed.";
             request.setAttribute("message",message);
-            request.getRequestDispatcher("gallery/view/AddImage.jsp").forward(request,response);
+            request.getRequestDispatcher("view/AddImage.jsp").forward(request,response);
         }
         else {  // insertImgSQL returned successfully
             int imageID = -1;
@@ -229,7 +229,7 @@ public class Image {
                 request.setAttribute("error",true);
                 message = "Please make sure you entered all input in correct format.";
                 request.setAttribute("message",message);
-                request.getRequestDispatcher("gallery/view/AddImage.jsp").forward(request,response);
+                request.getRequestDispatcher("view/AddImage.jsp").forward(request,response);
             }
             else if (retVal == 0) {
                 String deleteImageSQL = "DELETE FROM image "
@@ -238,7 +238,7 @@ public class Image {
                 request.setAttribute("error",false);
                 message = "Adding new image failed.";
                 request.setAttribute("message",message);
-                request.getRequestDispatcher("gallery/view/AddImage.jsp").forward(request,response);
+                request.getRequestDispatcher("view/AddImage.jsp").forward(request,response);
             }
             else {  // insertDetailSQL returned successfully
                 int detailID = -1;
@@ -275,13 +275,13 @@ public class Image {
                     request.setAttribute("error",false);
                     message = "Adding new image failed.";
                     request.setAttribute("message",message);
-                    request.getRequestDispatcher("gallery/view/AddImage.jsp").forward(request,response);
+                    request.getRequestDispatcher("view/AddImage.jsp").forward(request,response);
                 }
                 else {
                     request.setAttribute("error", false);
                     message = "Success: A new Image inserted.";
                     request.setAttribute("message",message);
-                    request.getRequestDispatcher("gallery/view/AddImage.jsp").forward(request,response);
+                    request.getRequestDispatcher("view/AddImage.jsp").forward(request,response);
                 }
             }
         }

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.LinkedList;
 
-@WebServlet("/ImageControl")
+@WebServlet("/gallery/ImageControl")
 public class ImageControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -23,10 +23,10 @@ public class ImageControl extends HttpServlet {
 		request.setAttribute("image_count", imageList.size());
         if(byGallery) {
             request.setAttribute("gallery_name", request.getAttribute("gallery_name"));
-            request.getRequestDispatcher("gallery/view/ImageList.jsp").forward(request, response);
+            request.getRequestDispatcher("view/ImageList.jsp").forward(request, response);
         }
         else
-            request.getRequestDispatcher("gallery/view/ImageList.jsp").forward(request, response);
+            request.getRequestDispatcher("view/ImageList.jsp").forward(request, response);
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

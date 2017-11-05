@@ -29,7 +29,7 @@
                             <div class="col-sm-12 col-xs-12" role="group" aria-label="...">
                                 <ul class="list-group col-lg-6 col-sm-12">
                                     <li class="list-group-item">ID: <%=detail.getImgID()%></li>
-                                    <li class="list-group-item">Artist: <a href="DetailControl?detail_type=artist&artist_id=<%=img.getArtist()%>"><%=artist.getName()%></a></li>
+                                    <li class="list-group-item">Artist: <a href="gallery/DetailControl?detail_type=artist&artist_id=<%=img.getArtist()%>"><%=artist.getName()%></a></li>
                                     <li class="list-group-item">Year: <%=detail.getYear()%></li>
                                     <li class="list-group-item">Type : <%=detail.getType()%></li>
                                     <li class="list-group-item">Size : <%=detail.getWidth()%> x <%=detail.getHeight()%></li>

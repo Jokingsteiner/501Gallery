@@ -20,7 +20,7 @@
         <% } %>
 
         <h1 align="center" class="my-title">Add Gallery</h1>
-        <form action="AddGalleryControl" method="post">
+        <form action="gallery/AddGalleryControl" method="post">
             <div class="form-group">
                 <label>Gallery Name:</label>
                 <div class="input-group">
@@ -42,7 +42,7 @@
         </form>
 
         <h1 align="center" class="my-title">Add Artist</h1>
-        <form action="AddArtistControl" method="post">
+        <form action="gallery/AddArtistControl" method="post">
             <div class="form-group">
                 <label>Artist Name:</label>
                 <div class="input-group">

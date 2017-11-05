@@ -56,7 +56,7 @@
 										<a href="<%=img.getLink()%>" id = "poster" class="thumbnail">
                                             <img src="<%=img.getLink()%>"  onError="this.onerror=null;this.src='gallery/image/thumbnail_unavailable.jpg';">
 										</a>
-                                        <a href="DetailControl?detail_type=image&image_id=<%=img.getID()%>">More...</a>
+                                        <a href="gallery/DetailControl?detail_type=image&image_id=<%=img.getID()%>">More...</a>
 									</div>
 
 									<%

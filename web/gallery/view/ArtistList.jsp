@@ -39,7 +39,7 @@
 										}
 									%>
 									<div class="col-xs-6 col-md-2">
-										<a href="DetailControl?detail_type=artist&artist_id=<%=artist.getID()%>" id = "poster" class="thumbnail">
+										<a href="gallery/DetailControl?detail_type=artist&artist_id=<%=artist.getID()%>" id = "poster" class="thumbnail">
                                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/1200px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"  onError="this.onerror=null;this.src='gallery/image/thumbnail_unavailable.jpg';">
 											<div id="Title"><%=artist.getName()%></div>
 										</a>

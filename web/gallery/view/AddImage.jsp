@@ -26,7 +26,7 @@
         <% } %>
 
         <h1 align="center" class="my-title">Add Image</h1>
-        <form action="AddImageControl" method="post">
+        <form action="gallery/AddImageControl" method="post">
             <div class="form-group">
                 <label>Image Title:</label>
                 <div class="input-group">
@@ -52,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="form-group col-lg-6" style="padding-right:0px;">
+            <div class="form-group col-lg-6" style="padding-right:0;">
                 <label>Artist</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>

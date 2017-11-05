@@ -1,24 +1,20 @@
 package controller;
 
-import domain.Artist;
+import domain.Gallery;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.LinkedList;
 
-@WebServlet("/gallery/ArtistControl")
-public class ArtistControl extends HttpServlet {
+@WebServlet("/")
+public class RootServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String cond = (String)request.getAttribute("sql_condition");
-		LinkedList<Artist> artistList = Artist.fetchArtist(cond);
-        request.setAttribute("result", artistList);
-        request.setAttribute("artist_count", artistList.size());
-		request.getRequestDispatcher("view/ArtistList.jsp").forward(request, response);
+		request.getRequestDispatcher("gallery/GalleryControl").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

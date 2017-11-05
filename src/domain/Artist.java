@@ -104,7 +104,7 @@ public class Artist {
             request.setAttribute("error",true);
             message = "Please input artist name.";
             request.setAttribute("message", message);
-            request.getRequestDispatcher("gallery/view/AddGalleryArtist.jsp").forward(request,response);
+            request.getRequestDispatcher("view/AddGalleryArtist.jsp").forward(request,response);
             return;
         }
 
@@ -120,7 +120,7 @@ public class Artist {
                 request.setAttribute("error",true);
                 message = "Error: Artist existed.";
                 request.setAttribute("message", message);
-                request.getRequestDispatcher("gallery/view/AddGalleryArtist.jsp").forward(request,response);
+                request.getRequestDispatcher("view/AddGalleryArtist.jsp").forward(request,response);
                 return;
             }
         } catch (SQLException e) {
@@ -152,6 +152,6 @@ public class Artist {
             message = "Success: A new artist inserted.";
         }
         request.setAttribute("message",message);
-        request.getRequestDispatcher("gallery/view/AddGalleryArtist.jsp").forward(request,response);
+        request.getRequestDispatcher("view/AddGalleryArtist.jsp").forward(request,response);
     }
 }

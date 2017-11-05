@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/SearchControl")
+@WebServlet("/gallery/SearchControl")
 public class SearchControl extends HttpServlet {
     Boolean byGallery = false;
 	private static final long serialVersionUID = 1L;
@@ -43,7 +43,7 @@ public class SearchControl extends HttpServlet {
             request.setAttribute("byGallery", byGallery);
             if (byGallery)
                 // I believe this (String) is not redundant, removing it may cause NumberFormat exception
-                request.setAttribute("gallery_name", Gallery.getGalleryNameByID(Integer.valueOf((String)request.getParameter("gallery_id"))));
+                request.setAttribute("gallery_name", Gallery.getGalleryNameByID(Integer.valueOf(galleryID==null?"0":galleryID)));
             request.getRequestDispatcher("ImageControl").forward(request, response);
         }
         else if (request.getParameter("forArtist") != null && "true".equals(request.getParameter("forArtist"))) {

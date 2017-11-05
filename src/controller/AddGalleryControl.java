@@ -13,7 +13,7 @@ import java.io.IOException;
  * Created by cjk98 on 5/9/2017.
  *
  */
-@WebServlet("/AddGalleryControl")
+@WebServlet("/gallery/AddGalleryControl")
 public class AddGalleryControl extends HttpServlet{
     private static final long serialVersionUID = 1L;
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

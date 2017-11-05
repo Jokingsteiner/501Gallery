@@ -20,14 +20,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="GalleryControl">
+        <a class="navbar-brand" href="gallery/GalleryControl">
             <i class="fa fa-video-camera" aria-hidden="true"></i><span style="padding-left: 15px;">501Gallery</span>
         </a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <form class="navbar-form navbar-left" action="SearchControl" method="get">
+            <form class="navbar-form navbar-left" action="gallery/SearchControl" method="get">
                 <input type="hidden" name="forImage" value="true">
                 <div class="form-group">
                     <input type="text" name="type" class="form-control" size="10%" placeholder="...Image type">
@@ -47,7 +47,7 @@
                 <button type="submit" class="btn btn-default">Image</button>
             </form>
 
-            <form class="navbar-form navbar-left" action="SearchControl" method="get">
+            <form class="navbar-form navbar-left" action="gallery/SearchControl" method="get">
                 <input type="hidden" name="forArtist" value="true">
                 <div class="form-group">
                     <input type="text" name="country" class="form-control" size="10%" placeholder="...Country">

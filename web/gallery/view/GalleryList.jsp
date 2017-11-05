@@ -38,7 +38,7 @@
 										}
 									%>
 									<div class="col-xs-6 col-md-2">
-										<a href="SearchControl?forImage=true&gallery_id=<%=gallery.getID()%>" id = "poster" class="thumbnail">
+										<a href="gallery/SearchControl?forImage=true&gallery_id=<%=gallery.getID()%>" id = "poster" class="thumbnail">
 											<%
 												if ( gallery.getImages().size() != 0) {
 											%>

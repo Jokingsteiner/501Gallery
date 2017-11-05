@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/DetailControl")
+@WebServlet("/gallery/DetailControl")
 public class DetailControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -26,13 +26,13 @@ public class DetailControl extends HttpServlet {
 			request.setAttribute("detail", detail);
 			request.setAttribute("image", image);
 			request.setAttribute("artist", artist);
-			request.getRequestDispatcher("gallery/view/ImageDetail.jsp").forward(request, response);
+			request.getRequestDispatcher("view/ImageDetail.jsp").forward(request, response);
 		}
 		else if (detailType.equals("artist")) {
             int artist_id = Integer.valueOf(request.getParameter("artist_id"));
             Artist artist = Artist.getArtistById(artist_id);
             request.setAttribute("artist", artist);
-            request.getRequestDispatcher("gallery/view/ArtistDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("view/ArtistDetail.jsp").forward(request, response);
 		}
 	}
 
