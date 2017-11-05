@@ -121,7 +121,7 @@ public class Gallery {
             return;
         }
 
-        String checkExsit = "SELECT COUNT(*) FROM gallery WHERE name = \"" + name + "\"";
+        String checkExsit = "SELECT COUNT(*) FROM gallery WHERE name = \"" + name + "\";";
         DBManager db = new DBManager();
         ResultSet rs = db.executeQuery(checkExsit);
 

@@ -108,7 +108,7 @@ public class Artist {
             return;
         }
 
-        String checkExsit = "SELECT COUNT(*) FROM artist WHERE name = \"" + name + "\"";
+        String checkExsit = "SELECT COUNT(*) FROM artist WHERE name = \"" + name + "\";";
         DBManager db = new DBManager();
         ResultSet rs = db.executeQuery(checkExsit);
 

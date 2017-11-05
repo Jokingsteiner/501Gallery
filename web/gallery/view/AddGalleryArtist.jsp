@@ -76,7 +76,7 @@
             <button class="btn btn-default" type="submit"><i class="fa fa-search"></i> Submit</button>
             <button class="btn btn-default" type="reset"><i class="fa fa-refresh"></i> Reset</button>
         </form>
-        <jsp:include page="/gallery/view/shared/Scripts.jsp" />
+        <jsp:include page="${pageContext.request.contextPath}/gallery/view/shared/Scripts.jsp" />
     </div>
     </body>
 </html>

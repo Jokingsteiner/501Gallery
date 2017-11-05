@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @WebServlet("/gallery/SearchControl")
 public class SearchControl extends HttpServlet {
-    Boolean byGallery = false;
+    String byGallery = "false";
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,7 +41,7 @@ public class SearchControl extends HttpServlet {
             String imgCond = generateImageCond(condition);
             request.setAttribute("sql_condition", imgCond);
             request.setAttribute("byGallery", byGallery);
-            if (byGallery)
+            if (byGallery.equals("true"))
                 // I believe this (String) is not redundant, removing it may cause NumberFormat exception
                 request.setAttribute("gallery_name", Gallery.getGalleryNameByID(Integer.valueOf(galleryID==null?"0":galleryID)));
             request.getRequestDispatcher("ImageControl").forward(request, response);
@@ -95,7 +95,7 @@ public class SearchControl extends HttpServlet {
                 }
             } else {
                 sqlCondition = "WHERE gallery_id = " + Integer.toString(galleryID) + " ";
-                this.byGallery = true;
+                this.byGallery = "true";
             }
         }
         return sqlCondition;

@@ -148,7 +148,8 @@ public class DBManager {
 
 	public int executeUpdate(String sql, String params[])
 	{
-        try {
+		System.out.println(sql);
+		try {
 
             Context initCtx = new InitialContext();
             if (initCtx == null)

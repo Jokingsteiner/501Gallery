@@ -35,12 +35,12 @@
                 </div>
             </div>
 
-            <div class="form-group col-lg-6" style="padding-left:0px;">
+            <div class="form-group col-lg-6" style="padding-left:0;">
                 <label>Gallery</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <select  type="text" name="gallery_id" class="form-control">
-                        <option value=""></option>
+                    <select  name="gallery_id" class="form-control">
+                        <option value="">Select Gallery...</option>
                         <%
                             for (Gallery gallery: galleryList) {
                         %>
@@ -56,8 +56,8 @@
                 <label>Artist</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <select  type="text" name="artist_id" class="form-control">
-                        <option value=""></option>
+                    <select  name="artist_id" class="form-control">
+                        <option value="">Select Artist...</option>
                         <%
                             for (Artist artist: artistList) {
                         %>
@@ -128,7 +128,7 @@
             <button class="btn btn-default" type="submit"><i class="fa fa-search"></i> Submit</button>
             <button class="btn btn-default" type="reset"><i class="fa fa-refresh"></i> Reset</button>
         </form>
-        <jsp:include page="/gallery/view/shared/Scripts.jsp" />
+        <jsp:include page="${pageContext.request.contextPath}/gallery/view/shared/Scripts.jsp" />
     </div>
     </body>
 </html>

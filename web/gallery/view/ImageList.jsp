@@ -5,7 +5,9 @@
 //	int pageSize = (int)request.getAttribute("pageSize");
 	LinkedList<Image> result = (LinkedList<Image>) request.getAttribute("result");
 	String galleryName = (String) request.getAttribute("gallery_name");
-	int imgCount = (Integer) request.getAttribute("image_count");
+	String cond = (String) request.getAttribute("sql_condition");
+    String byGallery = (String) request.getAttribute("byGallery");
+	int imgCount = result==null?0:result.size();
 %>
 
 <!DOCTYPE html>
@@ -18,6 +20,17 @@
 <body>
 <jsp:include page="${pageContext.request.contextPath}/gallery/view/shared/Header.jsp" />
 <div class="container">
+	<% if(request.getAttribute("error") != null) { %>
+		<% if((Boolean) request.getAttribute("error")) { %>
+			<div class="alert alert-danger">
+				<%=request.getAttribute("message")%>
+			</div>
+		<% } else { %>
+			<div class="alert alert-success">
+				<%=request.getAttribute("message")%>
+			</div>
+		<% } %>
+	<% } %>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<div class="row">
@@ -56,7 +69,15 @@
 										<a href="<%=img.getLink()%>" id = "poster" class="thumbnail">
                                             <img src="<%=img.getLink()%>"  onError="this.onerror=null;this.src='gallery/image/thumbnail_unavailable.jpg';">
 										</a>
-                                        <a href="gallery/DetailControl?detail_type=image&image_id=<%=img.getID()%>">More...</a>
+										<form action="gallery/DetailControl?detail_type=image&image_id=<%=img.getID()%>" method="post">
+											<button class="btn btn-default col-lg-6" type="submit"><i class="fa fa-search"></i>More...</button>
+										</form>
+                                        <form action="gallery/DeleteControl" method="post">
+                                            <input type="hidden" name="image_id" value="<%=Integer.toString(img.getID())%>" class="form-control">
+                                            <input type="hidden" name="cond" value="<%=cond%>" class="form-control">
+                                            <input type="hidden" name="byGallery" value="<%=byGallery%>" class="form-control">
+                                            <button class="btn btn-default col-lg-6" type="submit"><i class="fa fa-search"></i><strong>DELETE</strong></button>
+                                        </form>
 									</div>
 
 									<%
@@ -78,6 +99,6 @@
 		</div>
 	</div>
 </div>
-<jsp:include page="/gallery/view/shared/Scripts.jsp" />
+<jsp:include page="${pageContext.request.contextPath}/gallery/view/shared/Scripts.jsp" />
 </body>
 </html>

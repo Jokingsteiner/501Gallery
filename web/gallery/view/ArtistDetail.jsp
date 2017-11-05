@@ -14,7 +14,10 @@
         <jsp:include page="${pageContext.request.contextPath}/gallery/view/shared/Header.jsp" />
         <div class="container">
             <div class="row">
-                <div class="info-panel row-items col-sm-12">
+                <div class="row-items col-sm-6">
+                    <img id="photo" src="http://www.world-art.ru/img/people/90000/80224.jpg" onError="this.onerror=null;this.src='gallery/image/thumbnail_unavailable.jpg';"><br>
+                </div>
+                <div class="info-panel row-items col-sm-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title"><%=artist.getName()%></h3>
@@ -34,5 +37,5 @@
             </div>
         </div>
     </body>
-    <jsp:include page="/gallery/view/shared/Scripts.jsp" />
+    <jsp:include page="${pageContext.request.contextPath}/gallery/view/shared/Scripts.jsp" />
 </html>

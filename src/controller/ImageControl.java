@@ -17,11 +17,12 @@ public class ImageControl extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cond = (String)request.getAttribute("sql_condition");
-        Boolean byGallery = (Boolean) request.getAttribute("byGallery");
+        String byGallery = (String) request.getAttribute("byGallery");
 		LinkedList<Image> imageList = Image.fetchImages(cond);
 		request.setAttribute("result", imageList);
-		request.setAttribute("image_count", imageList.size());
-        if(byGallery) {
+        request.setAttribute("sql_condition", cond);
+        request.setAttribute("byGallery", byGallery);
+        if(byGallery.equals("true")) {
             request.setAttribute("gallery_name", request.getAttribute("gallery_name"));
             request.getRequestDispatcher("view/ImageList.jsp").forward(request, response);
         }

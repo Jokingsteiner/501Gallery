@@ -43,5 +43,5 @@
             </div>
         </div>
     </body>
-    <jsp:include page="/gallery/view/shared/Scripts.jsp" />
+    <jsp:include page="${pageContext.request.contextPath}/gallery/view/shared/Scripts.jsp" />
 </html>
