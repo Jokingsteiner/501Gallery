@@ -29,14 +29,33 @@ public class SearchControl extends HttpServlet {
         // Set parameters
         Condition condition = new Condition();
         if(type != null && !type.equals("")) condition.setType(type);
-        if(yearStart != null && !yearStart.equals("")) condition.setYearStart(Integer.valueOf(yearStart));
-        if(yearEnd != null && !yearEnd.equals("")) condition.setYearEnd(Integer.valueOf(yearEnd));
+        try {
+            if (yearStart != null && !yearStart.equals("")) condition.setYearStart(Integer.valueOf(yearStart));
+        }
+        catch (java.lang.NumberFormatException e) {
+            condition.setYearStart(30000);
+        }
+        try {
+            if (yearEnd != null && !yearEnd.equals("")) condition.setYearEnd(Integer.valueOf(yearEnd));
+        }
+        catch  (java.lang.NumberFormatException e) {
+            condition.setYearEnd(-30000);
+        }
         if(artistName != null && !artistName.equals("")) condition.setArtistName(artistName);
         if(location != null && !location.equals("")) condition.setLocation(location);
-        if(galleryID != null && !galleryID.equals("")) condition.setGalleryID(Integer.valueOf(galleryID));
+        try {
+            if(galleryID != null && !galleryID.equals("")) condition.setGalleryID(Integer.valueOf(galleryID));
+        }
+        catch  (java.lang.NumberFormatException e) {
+            condition.setGalleryID(-1);
+        }
         if(country != null && !country.equals("")) condition.setCountry(country);
-        if(birthYear != null && !birthYear.equals("")) condition.setBirthYear(Integer.valueOf(birthYear));
-
+        try {
+            if(birthYear != null && !birthYear.equals("")) condition.setBirthYear(Integer.valueOf(birthYear));
+        }
+        catch  (java.lang.NumberFormatException e) {
+            condition.setBirthYear(-5);
+        }
         if (request.getParameter("forImage") != null && "true".equals(request.getParameter("forImage"))) {
             String imgCond = generateImageCond(condition);
             request.setAttribute("sql_condition", imgCond);
