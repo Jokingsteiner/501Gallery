@@ -322,7 +322,7 @@ public class Image {
 
             String delImageSQL = "DELETE FROM image "
                     +"WHERE image_id = " + imgID + ";";
-            retVal += db.executeUpdate(delDetailSQL, paramNull);
+            retVal += db.executeUpdate(delImageSQL, paramNull);
             db.close();
 
             if (retVal <= 0) {
@@ -338,7 +338,9 @@ public class Image {
         }
     }
 
-    public static void modifyImage(int imgID, String title, String link, String returnURL, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public static void modifyImage(int imgID, String title, String link, String year, String type, String width, String height,
+                                   String location, String description, String artistID, String galleryID, String returnURL,
+                                   HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String message;
         if(imgID > 0) {
             String checkExsit = "SELECT COUNT(*) FROM image WHERE image_id = " + Integer.toString(imgID) + ";";
@@ -367,27 +369,66 @@ public class Image {
 
             title = title.trim();
             link = link.trim();
+            year = year.trim();
+            width = width.trim();
+            height = height.trim();
+            location = location.trim();
+            description = description.trim();
+            artistID = artistID.trim();
+            galleryID = galleryID.trim();
+            Image orgImg = getImageById(imgID);
+            Detail orgDetail = Detail.getDetailByImgID(imgID);
 
-             if (title.equals(""))
-                 title = Image.getImageById(imgID).getTitle();
-             if (link.equals(""))
-                 link = Image.getImageById(imgID).getLink();
+            if (title.equals(""))
+                title = orgImg.getTitle();
+            if (link.equals(""))
+                link = orgImg.getLink();
+            if (year.equals(""))
+                year = Integer.toString(orgDetail.getYear());
+            if (width.equals(""))
+                width = Integer.toString(orgDetail.getWidth());
+            if (height.equals(""))
+                height = Integer.toString(orgDetail.getHeight());
+            if (location.equals(""))
+                location = orgDetail.getLocation();
+            if (description.equals(""))
+                description = orgDetail.getDescription();
+            if ("".equals(artistID))
+                artistID = Integer.toString(orgImg.getArtist());
+            if ("".equals(galleryID))
+                galleryID = Integer.toString(orgImg.getGallery());
 
-            String paramNull[] = {};
             String updateImgSQL = "UPDATE image "
-                                 +"SET title = \'" + title + "\', "
-                                 +"link = \'" + link + "\' "
+                                 +"SET title = ?, link = ?, artist_id = ?, gallery_id = ? "
                                  +"WHERE image_id = "+ Integer.toString(imgID) + ";";
-            int retVal = db.executeUpdate(updateImgSQL, paramNull);
+
+            String param[] = {title, link, artistID, galleryID};
+            int retVal = db.executeUpdate(updateImgSQL, param);
             db.close();
 
             if (retVal <= 0) {
                 request.setAttribute("error",true);
-                message = "Update Image failed.";
+                message = "Update Failed. Please check your input format.";
+                request.setAttribute("message", message);
+                request.getRequestDispatcher(returnURL).forward(request,response);
             }
             else {
-                request.setAttribute("error",false);
-                message = "Update image successfully.";
+                String updateDetailSQL = "UPDATE detail "
+                        +"SET year = ?, type = ?, width = ?, height = ?, location = ?, description = ? "
+                        +"WHERE image_id = "+ Integer.toString(imgID) + ";";
+
+                String param2[] = {year, type, width, height, location, description};
+                retVal = db.executeUpdate(updateDetailSQL, param2);
+                db.close();
+
+                if (retVal <= 0) {
+                    request.setAttribute("error",true);
+                    message = "Update Failed. Please check your input format.";
+                }
+                else {
+                    request.setAttribute("error", false);
+                    message = "Update image successfully.";
+                }
             }
             request.setAttribute("message", message);
             request.getRequestDispatcher(returnURL).forward(request,response);

@@ -23,13 +23,30 @@ public class UpdateControl extends HttpServlet {
             case "image": {
                 String title = request.getParameter("title");
                 String link = request.getParameter("link");
+                String year = request.getParameter("year");
+                String type = request.getParameter("type");
+                String width = request.getParameter("width");
+                String height = request.getParameter("height");
+                String location = request.getParameter("location");
+                String description = request.getParameter("description");
+                String galleryID = request.getParameter("gallery_id");
+                String artistID = request.getParameter("artist_id");
+
                 // avoid exception by invalid HTTP Get
                 if (title == null) title = "";
                 if (link == null) link = "";
+                if (year == null) year = "";
+                if (type == null) type = "";
+                if (width == null) width = "";
+                if (height == null) height = "";
+                if (location == null) location = "";
+                if (description == null) description = "";
+                if (galleryID == null) galleryID = "";
+                if (artistID == null) artistID = "";
 
                 int imgID = Integer.valueOf(request.getParameter("image_id"));
                 String returnURL = "DetailControl?detail_type=image&image_id=" + Integer.toString(imgID);
-                Image.modifyImage(imgID, title, link, returnURL, request, response);
+                Image.modifyImage(imgID, title, link, year, type, width, height, location, description, artistID, galleryID, returnURL, request, response);
                 break;
             }
             case "artist": {

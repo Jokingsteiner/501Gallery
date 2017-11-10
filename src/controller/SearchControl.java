@@ -25,7 +25,6 @@ public class SearchControl extends HttpServlet {
         String galleryID = request.getParameter("gallery_id");
         String country = request.getParameter("country");
         String birthYear = request.getParameter("birth_year");
-        System.out.println("Gallery_id = " + galleryID);
         // Set parameters
         Condition condition = new Condition();
         if(type != null && !type.equals("")) condition.setType(type);
@@ -62,7 +61,8 @@ public class SearchControl extends HttpServlet {
             request.setAttribute("byGallery", byGallery);
             if (byGallery.equals("true"))
                 // I believe this (String) is not redundant, removing it may cause NumberFormat exception
-                request.setAttribute("gallery_name", Gallery.getGalleryNameByID(Integer.valueOf(galleryID==null?"0":galleryID)));
+                request.setAttribute("gallery", Gallery.getGalleryByID(Integer.valueOf(galleryID==null?"1":galleryID)));
+//                request.setAttribute("gallery_name", Gallery.getGalleryNameByID(Integer.valueOf(galleryID==null?"0":galleryID)));
             request.getRequestDispatcher("ImageControl").forward(request, response);
         }
         else if (request.getParameter("forArtist") != null && "true".equals(request.getParameter("forArtist"))) {

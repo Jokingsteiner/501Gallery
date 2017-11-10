@@ -4,9 +4,12 @@
 //	int pageNum = (int)request.getAttribute("pageNum");
 //	int pageSize = (int)request.getAttribute("pageSize");
 	LinkedList<Image> result = (LinkedList<Image>) request.getAttribute("result");
-	String galleryName = (String) request.getAttribute("gallery_name");
+//	String galleryName = (String) request.getAttribute("gallery_name");
 	String cond = (String) request.getAttribute("sql_condition");
     String byGallery = (String) request.getAttribute("byGallery");
+	Gallery gallery = new Gallery();
+    if (byGallery.equals("true"))
+        gallery = (Gallery) request.getAttribute("gallery");
 	int imgCount = result==null?0:result.size();
 %>
 
@@ -38,9 +41,10 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<%
-								if (galleryName != null) {
+								if (gallery.getName() != null) {
 							%>
-								<h3 class="panel-title"><%=galleryName%> - <%=imgCount%> <%if(imgCount <= 1){out.print("image");}else{out.print("images");}%></h3>
+								<h3 class="panel-title"><%=gallery.getName()%> - <%=imgCount%> <%if(imgCount <= 1){out.print("image");}else{out.print("images");}%></h3>
+								<div><%=gallery.getDescription()%></div>
 							<%
 								}
 								else {
@@ -109,7 +113,7 @@
 			<div class="panel-body">
 				<form action="gallery/UpdateControl" method="post">
 					<input type="hidden" name="update_type" value="gallery" class="form-control">
-					<input type="hidden" name="gallery_name" value="<%=galleryName%>" class="form-control">
+					<input type="hidden" name="gallery_name" value="<%=gallery.getName()%>" class="form-control">
 					<div class="form-group col-lg-12">
 						<label>Gallery name:</label>
 						<div class="input-group">

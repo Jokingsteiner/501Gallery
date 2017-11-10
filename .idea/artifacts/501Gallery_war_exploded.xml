@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="501Gallery:war exploded">
+  <artifact type="war" name="501Gallery:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/501Gallery_war_exploded</output-path>
-    <root id="root">
+    <root id="archive" name="501Gallery_war exploded.war">
       <element id="javaee-facet-resources" facet="501Gallery/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">

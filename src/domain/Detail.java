@@ -10,8 +10,8 @@ public class Detail {
     private int image_id = -1;
     private int year = 0;
     private String type = null;
-    private String width = null;
-    private String height = null;
+    private int width = -1;
+    private int height = -1;
     private String location = null;
     private String description = null;
 
@@ -25,14 +25,12 @@ public class Detail {
         return type;
     }
     public void setType(String type) { this.type = type; }
-    public String getWidth() {
-        return width;
-    }
-    public void setWidth(String width) { this.width = width; }
-    public String getHeight() {
+    public int getWidth() { return width;}
+    public void setWidth(int width) { this.width = width; }
+    public int getHeight() {
         return height;
     }
-    public void setHeight(String height) { this.height = height; }
+    public void setHeight(int height) { this.height = height; }
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
     public String getDescription() { return description; }
@@ -53,8 +51,8 @@ public class Detail {
                 detail.setImgID(rs.getInt(2));
                 detail.setYear(rs.getInt(3));
                 detail.setType(rs.getString(4));
-                detail.setWidth(rs.getString(5));
-                detail.setHeight(rs.getString(6));
+                detail.setWidth(rs.getInt(5));
+                detail.setHeight(rs.getInt(6));
                 detail.setLocation(rs.getString(7));
                 detail.setDescription(rs.getString(8));
             }
