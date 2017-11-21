@@ -41,7 +41,7 @@
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<%
-								if (gallery.getName() != null) {
+								if (gallery != null) {
 							%>
 								<h3 class="panel-title"><%=gallery.getName()%> - <%=imgCount%> <%if(imgCount <= 1){out.print("image");}else{out.print("images");}%></h3>
 								<div><%=gallery.getDescription()%></div>
@@ -113,7 +113,7 @@
 			<div class="panel-body">
 				<form action="gallery/UpdateControl" method="post">
 					<input type="hidden" name="update_type" value="gallery" class="form-control">
-					<input type="hidden" name="gallery_name" value="<%=gallery.getName()%>" class="form-control">
+					<input type="hidden" name="gallery_name" value="<%=gallery==null?null:gallery.getName()%>" class="form-control">
 					<div class="form-group col-lg-12">
 						<label>Gallery name:</label>
 						<div class="input-group">
