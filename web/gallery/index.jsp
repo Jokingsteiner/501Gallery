@@ -70,6 +70,15 @@
             </div>
         </div>
     </div>
+
+    <div>
+        <form action="gallery/UploadControl" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" />
+            <input type="submit" value="upload" />
+        </form>
+    </div>
+
+
 </div>
 <jsp:include page="${pageContext.request.contextPath}/gallery/view/shared/Scripts.jsp" />
 </body>
